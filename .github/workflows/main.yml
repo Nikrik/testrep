@@ -1,0 +1,10 @@
+on:
+    workflow_dispatch:
+    push:
+      branches: [ master ]
+jobs:
+    my-job:
+        runs-on: self-hosted
+        steps:
+            - name: my-step
+              run: echo "Hello World!"
