@@ -9,5 +9,6 @@ jobs:
             - uses: actions/checkout@v4
             - name: my-step
               run: | 
-                ls
-                pwd
+                pyinstaller .\Main.spec --noconfirm
+                iscc .\innosetup.iss
+              
