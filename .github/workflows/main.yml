@@ -8,5 +8,5 @@ jobs:
         steps:
             - name: my-step
               run: | 
-                pyinstaller .\Main.spec --noconfirm
-                iscc .\innosetup.iss
+                ls
+                pwd
