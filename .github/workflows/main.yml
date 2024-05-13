@@ -7,6 +7,6 @@ jobs:
         runs-on: self-hosted
         steps:
             - name: my-step
-              run: 
+              run: | 
                 pyinstaller .\Main.spec --noconfirm
                 iscc .\innosetup.iss
