@@ -7,6 +7,18 @@ jobs:
         runs-on: self-hosted
         steps:
             - uses: actions/checkout@v4
+            - uses: getsentry/action-setup-venv@v2.1.0
+              id: venv
+              with:
+                python-version: 3.11.8
+                cache-dependency-path: |
+                  requirements.txt
+                install-cmd: pip install -r requirements.txt
+            - name: test venv
+              run: |
+                python --version
+                pip --version
+                pip freeze
             - name: make exe
               run: pyinstaller .\Main.spec --noconfirm
             - name: make setup
