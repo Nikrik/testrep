@@ -7,18 +7,20 @@ jobs:
         runs-on: self-hosted
         steps:
             - uses: actions/checkout@v4
-            - name: create venv
-              run: if (-Not (Test-Path "venv")) {python -m venv venv;Write-Output "Virtual environment created."} else {Write-Output "Virtual environment already exists."}
-            - name: activate venv
-              run: ./venv/Scripts/activate
+            - name: create venv and install dependencies
+              run: |
+                if (-Not (Test-Path "venv")) {python -m venv venv;Write-Output "Virtual environment created."} else {Write-Output "Virtual environment already exists."}
+                ./venv/Scripts/activate
+                pip install -r .\requirements.txt
             - name: test enviroment
               run: |
+                ./venv/Scripts/activate
                 python --version
                 pip --version
                 pip freeze
-            - name: install dependencies
-              run: pip install -r .\requirements.txt
             - name: make exe
-              run: pyinstaller .\Main.spec --noconfirm
+              run: |
+                ./venv/Scripts/activate
+                pyinstaller .\Main.spec --noconfirm
             - name: make setup
               run: iscc .\innosetup.iss
