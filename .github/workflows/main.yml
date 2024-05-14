@@ -6,23 +6,18 @@ jobs:
     my-job:
         runs-on: self-hosted
         steps:
-            - uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c
-              with:
-                python-version: '3.11.8'
             - uses: actions/checkout@v4
-            - uses: getsentry/action-setup-venv@v2.1.0
-              id: venv
-              with:
-                python-version: 3.11.8
-                cache-dependency-path: |
-                  requirements.txt
-                install-cmd: pip install -r requirements.txt
-                venv-dir: venv
-            - name: test venv
+            - name: create venv
+              run: if (-Not (Test-Path "my_venv")) {python -m venv my_venv;Write-Output "Virtual environment created."} else {Write-Output "Virtual environment already exists."}
+            - name: activate venv
+              run: ./venv/Scripts/activate
+            - name: test enviroment
               run: |
                 python --version
                 pip --version
                 pip freeze
+            - name: install dependencies
+              run: pip install -r .\requirements.txt
             - name: make exe
               run: pyinstaller .\Main.spec --noconfirm
             - name: make setup
