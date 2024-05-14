@@ -14,6 +14,7 @@ jobs:
                 cache-dependency-path: |
                   requirements.txt
                 install-cmd: pip install -r requirements.txt
+                venv-dir: venv
             - name: test venv
               run: |
                 python --version
