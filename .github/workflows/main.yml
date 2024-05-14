@@ -8,7 +8,7 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - name: create venv
-              run: if (-Not (Test-Path "my_venv")) {python -m venv my_venv;Write-Output "Virtual environment created."} else {Write-Output "Virtual environment already exists."}
+              run: if (-Not (Test-Path "venv")) {python -m venv my_venv;Write-Output "Virtual environment created."} else {Write-Output "Virtual environment already exists."}
             - name: activate venv
               run: ./venv/Scripts/activate
             - name: test enviroment
